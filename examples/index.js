@@ -35,9 +35,7 @@ var Ads = function() {
 
   this.player = videojs('content_video', {
     plugins: {
-      brightcoveTracker: {
-        exampleOption: true
-      }
+      brightcoveTracker: {}
     }
   });
   if (this.player.ads) {
