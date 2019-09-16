@@ -1,13 +1,16 @@
 {
   "name": "videojs-brightcove-tracker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/videojs-brightcove-tracker.cjs",
   "module": "dist/videojs-brightcove-tracker.esm",
   "browser": "dist/videojs-brightcove-tracker.umd",
   "dependencies": {},
   "devDependencies": {
     "rollup": "^1.21.2",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2",
     "video.js": "^7.6.0",
     "videojs-contrib-ads": "^6.6.4",
