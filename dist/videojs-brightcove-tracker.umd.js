@@ -5,9 +5,6 @@ var howLongUntilLunch = (function (videojs) {
 
   var version = "0.0.1";
 
-  const trackingUrlSample =
-    'http://metrics.brightcove.com/tracker?event=video_view&session=581136_2018-07-03T18:34:46.214Z&destination=http%3A%2F%2Fwww.current-times.com%2F&video=2621468623001&video_name=Debate-2&video_duration=189&time=1377191666432&source=http%3A%2F%2Fwww.google.com%2Furl%252F%26ei%3DoEYWUtCgEIXq9ATznoCgCQ%26us-g%3DAFQjCNEtv.51156542%2Cd.dmg&domain=videocloud&account=1749339200';
-
   // Cross-compatibility for Video.js 5 and 6.
   const registerPlugin = videojs.registerPlugin || videojs.plugin;
   const dom = videojs.dom || videojs;
@@ -20,7 +17,6 @@ var howLongUntilLunch = (function (videojs) {
       video,
       videoName,
       videoDuration,
-      time,
       source,
       domain,
       account
@@ -33,7 +29,6 @@ var howLongUntilLunch = (function (videojs) {
       this.video = video;
       this.videoName = videoName;
       this.videoDuration = videoDuration;
-      this.time = time;
       this.source = source;
       this.domain = domain;
       this.account = account;
@@ -51,7 +46,6 @@ var howLongUntilLunch = (function (videojs) {
       video = this.video,
       videoName = this.videoName,
       videoDuration = this.videoDuration,
-      time = this.time,
       source = this.source,
       domain = this.domain,
       account = this.account
@@ -61,7 +55,6 @@ var howLongUntilLunch = (function (videojs) {
       this.video = video;
       this.videoName = videoName;
       this.videoDuration = videoDuration;
-      this.time = time;
       this.source = source;
       this.domain = domain;
       this.account = account;
@@ -73,10 +66,17 @@ var howLongUntilLunch = (function (videojs) {
        * image with source the tracking url. Pretty much
        * ref: https://support.brightcove.com/overview-data-collection-api-v2
        */
+      const trackingSource = `http://metrics.brightcove.com/tracker?event=video_view&session=${
+      this.session
+    }&destination=${this.destination}&video=${this.video}&video_name=${
+      this.videoName
+    }&video_duration=${this.videoDuration}&time=${Date.now()}&source=${
+      this.source
+    }&domain=${this.domain}&account=${this.account}`;
       const el = dom.createEl('img', {
         className: 'vcs-bctr'
       });
-      el.src = trackingUrlSample;
+      el.src = trackingSource;
       this.player.el().appendChild(el);
     }
   }
