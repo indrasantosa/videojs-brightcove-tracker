@@ -1,4 +1,4 @@
-import videojs from'video.js';var version = "0.0.2";// Cross-compatibility for Video.js 5 and 6.
+import videojs from'video.js';var version = "0.0.3";// Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
 const dom = videojs.dom || videojs;
 

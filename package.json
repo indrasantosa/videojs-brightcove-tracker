@@ -1,6 +1,6 @@
 {
   "name": "videojs-brightcove-tracker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/videojs-brightcove-tracker.cjs",
   "module": "dist/videojs-brightcove-tracker.esm",
   "browser": "dist/videojs-brightcove-tracker.umd",

@@ -1,4 +1,4 @@
-'use strict';function _interopDefault(e){return(e&&(typeof e==='object')&&'default'in e)?e['default']:e}var videojs=_interopDefault(require('video.js'));var version = "0.0.2";// Cross-compatibility for Video.js 5 and 6.
+'use strict';function _interopDefault(e){return(e&&(typeof e==='object')&&'default'in e)?e['default']:e}var videojs=_interopDefault(require('video.js'));var version = "0.0.3";// Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
 const dom = videojs.dom || videojs;
 
