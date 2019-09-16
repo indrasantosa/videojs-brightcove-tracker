@@ -1,99 +1,88 @@
-var howLongUntilLunch = (function (videojs) {
-  'use strict';
+var howLongUntilLunch=(function(videojs){'use strict';videojs=videojs&&videojs.hasOwnProperty('default')?videojs['default']:videojs;var version = "0.0.2";// Cross-compatibility for Video.js 5 and 6.
+const registerPlugin = videojs.registerPlugin || videojs.plugin;
+const dom = videojs.dom || videojs;
 
-  videojs = videojs && videojs.hasOwnProperty('default') ? videojs['default'] : videojs;
+class BrightcoveTracker {
+  constructor({
+    player,
+    session,
+    destination,
+    video,
+    videoName,
+    videoDuration,
+    source,
+    domain,
+    account
+  }) {
+    const self = this;
+    this.player = player;
 
-  var version = "0.0.1";
+    this.session = session;
+    this.destination = destination;
+    this.video = video;
+    this.videoName = videoName;
+    this.videoDuration = videoDuration;
+    this.source = source;
+    this.domain = domain;
+    this.account = account;
 
-  // Cross-compatibility for Video.js 5 and 6.
-  const registerPlugin = videojs.registerPlugin || videojs.plugin;
-  const dom = videojs.dom || videojs;
+    this.sendTracking = this.sendTracking.bind(this);
 
-  class BrightcoveTracker {
-    constructor({
-      player,
-      session,
-      destination,
-      video,
-      videoName,
-      videoDuration,
-      source,
-      domain,
-      account
-    }) {
-      const self = this;
-      this.player = player;
+    this.player.on('loadedmetadata', function(e) {
+      self.sendTracking();
+    });
+  }
 
-      this.session = session;
-      this.destination = destination;
-      this.video = video;
-      this.videoName = videoName;
-      this.videoDuration = videoDuration;
-      this.source = source;
-      this.domain = domain;
-      this.account = account;
+  setVideoTracker({
+    session = this.session,
+    destination = this.destination,
+    video = this.video,
+    videoName = this.videoName,
+    videoDuration = this.videoDuration,
+    source = this.source,
+    domain = this.domain,
+    account = this.account
+  }) {
+    this.session = session;
+    this.destination = destination;
+    this.video = video;
+    this.videoName = videoName;
+    this.videoDuration = videoDuration;
+    this.source = source;
+    this.domain = domain;
+    this.account = account;
+  }
 
-      this.sendTracking = this.sendTracking.bind(this);
-
-      this.player.on('loadedmetadata', function(e) {
-        self.sendTracking();
-      });
-    }
-
-    setVideoTracker({
-      session = this.session,
-      destination = this.destination,
-      video = this.video,
-      videoName = this.videoName,
-      videoDuration = this.videoDuration,
-      source = this.source,
-      domain = this.domain,
-      account = this.account
-    }) {
-      this.session = session;
-      this.destination = destination;
-      this.video = video;
-      this.videoName = videoName;
-      this.videoDuration = videoDuration;
-      this.source = source;
-      this.domain = domain;
-      this.account = account;
-    }
-
-    sendTracking() {
-      /**
-       * Based on best practice, we need to send analytics by creating an
-       * image with source the tracking url. Pretty much
-       * ref: https://support.brightcove.com/overview-data-collection-api-v2
-       */
-      const trackingSource = `http://metrics.brightcove.com/tracker?event=video_view&session=${
+  sendTracking() {
+    /**
+     * Based on best practice, we need to send analytics by creating an
+     * image with source the tracking url. Pretty much
+     * ref: https://support.brightcove.com/overview-data-collection-api-v2
+     */
+    const trackingSource = `http://metrics.brightcove.com/tracker?event=video_view&session=${
       this.session
     }&destination=${this.destination}&video=${this.video}&video_name=${
       this.videoName
     }&video_duration=${this.videoDuration}&time=${Date.now()}&source=${
       this.source
     }&domain=${this.domain}&account=${this.account}`;
-      const el = dom.createEl('img', {
-        className: 'vcs-bctr'
-      });
-      el.src = trackingSource;
-      this.player.el().appendChild(el);
-    }
-  }
-
-  function brightcoveTracker(options) {
-    this.ready(() => {
-      this.bcTracker = new BrightcoveTracker({
-        ...options,
-        player: this
-      });
+    const el = dom.createEl('img', {
+      className: 'vcs-bctr'
     });
+    el.src = trackingSource;
+    this.player.el().appendChild(el);
   }
+}
 
-  registerPlugin('brightcoveTracker', brightcoveTracker);
+function brightcoveTracker(options) {
+  this.ready(() => {
+    this.bcTracker = new BrightcoveTracker({
+      ...options,
+      player: this
+    });
+  });
+}
 
-  brightcoveTracker.version = version;
+registerPlugin('brightcoveTracker', brightcoveTracker);
 
-  return brightcoveTracker;
-
-}(videojs));
+brightcoveTracker.version = version;return brightcoveTracker;}(videojs));

@@ -1,8 +1,4 @@
-import videojs from 'video.js';
-
-var version = "0.0.1";
-
-// Cross-compatibility for Video.js 5 and 6.
+import videojs from'video.js';var version = "0.0.2";// Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
 const dom = videojs.dom || videojs;
 
@@ -89,6 +85,4 @@ function brightcoveTracker(options) {
 
 registerPlugin('brightcoveTracker', brightcoveTracker);
 
-brightcoveTracker.version = version;
-
-export default brightcoveTracker;
+brightcoveTracker.version = version;export default brightcoveTracker;

@@ -1,12 +1,4 @@
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var videojs = _interopDefault(require('video.js'));
-
-var version = "0.0.1";
-
-// Cross-compatibility for Video.js 5 and 6.
+'use strict';function _interopDefault(e){return(e&&(typeof e==='object')&&'default'in e)?e['default']:e}var videojs=_interopDefault(require('video.js'));var version = "0.0.2";// Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
 const dom = videojs.dom || videojs;
 
@@ -93,6 +85,4 @@ function brightcoveTracker(options) {
 
 registerPlugin('brightcoveTracker', brightcoveTracker);
 
-brightcoveTracker.version = version;
-
-module.exports = brightcoveTracker;
+brightcoveTracker.version = version;module.exports=brightcoveTracker;

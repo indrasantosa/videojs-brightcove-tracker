@@ -1,21 +1,34 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
 import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
 export default [
-  // browser-friendly UMD build
+  // Unminified version
   {
     input: 'src/main.js',
     output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' },
+      { file: pkg.main + '.js', format: 'cjs' },
+      { file: pkg.module + '.js', format: 'es' },
       {
         name: 'howLongUntilLunch',
-        file: pkg.browser,
+        file: pkg.browser + '.js',
         format: 'iife'
       }
     ],
     plugins: [json()]
+  },
+  // Minified version
+  {
+    input: 'src/main.js',
+    output: [
+      { file: pkg.main + '.min.js', format: 'cjs' },
+      { file: pkg.module + '.min.js', format: 'es' },
+      {
+        name: 'howLongUntilLunch',
+        file: pkg.browser + '.min.js',
+        format: 'iife'
+      }
+    ],
+    plugins: [json(), terser({ sourcemap: true })]
   }
 ];
